@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1. Rafadan Tayfa Hacklaton</title>
+    <style>
+        :root {
+            --dark-purple: #4a0072;
+            --medium-purple: #7b1fa2;
+            --light-purple: #ae52d4;
+            --black: #121212;
+            --dark-gray: #212121;
+            --light-gray: #757575;
+            --white: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--dark-purple) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, var(--medium-purple) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+        
+        header {
+            background-color: var(--dark-purple);
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            text-shadow: 3px 3px 0px var(--black);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--light-purple);
+            letter-spacing: 2px;
+        }
+        
+        main {
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+            padding: 3rem 0;
+            flex-grow: 1;
+        }
+        
+        .countdown-section {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+        
+        .countdown-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-purple);
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background-color: var(--dark-gray);
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-width: 120px;
+            border: 2px solid var(--medium-purple);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--light-purple);
+        }
+        
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin-top: 0.5rem;
+        }
+        
+        .theme-section {
+            margin-bottom: 4rem;
+            background-color: var(--dark-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 5px solid var(--medium-purple);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .theme-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--light-purple);
+        }
+        
+        .theme-content {
+            font-size: 1.5rem;
+            padding: 1rem;
+            background-color: var(--black);
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 60%;
+        }
+        
+        #theme-placeholder {
+            color: var(--light-gray);
+            font-style: italic;
+        }
+        
+        #theme-text {
+            color: var(--white);
+            font-weight: bold;
+            display: none;
+        }
+        
+        .teams-section {
+            text-align: center;
+        }
+        
+        .teams-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-purple);
+        }
+        
+        .teams-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-card {
+            background-color: var(--dark-gray);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--medium-purple);
+        }
+        
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(123, 31, 162, 0.3);
+        }
+        
+        .team-number {
+            background-color: var(--medium-purple);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .team-members {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background-color: var(--black);
+        }
+        
+        .member-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--medium-purple);
+            background-color: var(--light-gray);
+        }
+        
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .member-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            background-color: var(--dark-purple);
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-text {
+            color: var(--light-gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .countdown-box {
+                min-width: 90px;
+                padding: 1rem;
+            }
+            
+            .countdown-number {
+                font-size: 1.8rem;
+            }
+            
+            .theme-content {
+                min-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">1. Rafadan Tayfa Hacklaton</h1>
+        <p class="subtitle">KOD • YARATILIK • YENİLİK</p>
+    </header>
+    
+    <main>
+        <section class="countdown-section">
+            <h2 class="countdown-title">Geri Sayım</h2>
+            <div class="countdown-container">
+                <div class="countdown-box">
+                    <div class="countdown-number" id="days">--</div>
+                    <div class="countdown-label">Gün</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="hours">--</div>
+                    <div class="countdown-label">Saat</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="minutes">--</div>
+                    <div class="countdown-label">Dakika</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-number" id="seconds">--</div>
+                    <div class="countdown-label">Saniye</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="theme-section">
+            <h2 class="theme-title">Hackathon Teması</h2>
+            <div class="theme-content">
+                <p id="theme-placeholder">Tema bu gece saat 00:00'da açıklanacak</p>
+                <p id="theme-text"></p>
+            </div>
+        </section>
+        
+        <section class="teams-section">
+            <h2 class="teams-title">Yarışma Takımları</h2>
+            <div class="teams-container">
+                <div class="team-card">
+                    <div class="team-number">1</div>
+                    <h3>Takım 1</h3>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="mustafa.JPG" alt="Mustafa">
+                            </div>
+                            <span class="member-name">Mustafa</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="yusuf.jpg" alt="Yusuf">
+                            </div>
+                            <span class="member-name">Yusuf</span>
+                        </div>
+                      
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-number">2</div>
+                    <h3>Takım 2</h3>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="yüksel.jpg" alt="Yüksel">
+                            </div>
+                            <span class="member-name">Yüksel</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="bilge.jpg" alt="Bilgehan">
+                            </div>
+                            <span class="member-name">Bilgehan</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-number">3</div>
+                    <h3>Takım 3</h3>
+                    <div class="team-members">
+                       
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="alifoto.jpg" alt="Ali">
+                            </div>
+                            <span class="member-name">Ali</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="enes.jpeg" alt="Enes">
+                            </div>
+                            <span class="member-name">Enes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-card">
+                    <div class="team-number">4</div>
+                    <h3>Takım 4</h3>
+                    <div class="team-members">
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="emirhan.jpg" alt="Emirhan">
+                            </div>
+                            <span class="member-name">Emirhan</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="member-photo">
+                                <img src="kagan.PNG" alt="Kagan">
+                            </div>
+                            <span class="member-name">Kagan</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p class="footer-text">© 2025 Rafadan Tayfa Hacklaton. Tüm hakları saklıdır.</p>
+    </footer>
+    
+    <script>
+        // Tema açıklanma zamanı - bu gece 00:00
+        const themeRevealDate = new Date();
+        themeRevealDate.setHours(24, 0, 0, 0); // Bugünün gece yarısı
+        
+        // Yarışma bitiş zamanı - Cumartesi saat 17:00
+        const endDate = new Date();
+        // Bugün hangi gün?
+        const today = endDate.getDay(); // 0 = Pazar, 6 = Cumartesi
+        // Cumartesi günü için gün ekleyelim
+        const daysUntilSaturday = today <= 6 ? 6 - today : 6 + (7 - today);
+        endDate.setDate(endDate.getDate() + daysUntilSaturday);
+        endDate.setHours(17, 0, 0, 0); // Cumartesi 17:00
+        
+        // Geri sayım fonksiyonu
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const isThemeRevealed = now >= themeRevealDate.getTime();
+            
+            // Tema açıklandı mı kontrol et
+            if (isThemeRevealed) {
+                document.getElementById('theme-placeholder').style.display = 'none';
+                document.getElementById('theme-text').style.display = 'block';
+                
+                // Normalde bu veri sunucudan gelir, ama burada statik olarak ayarlayacağız
+                // Tema belirlendikten sonra buraya gerçek temayı yazabilirsiniz
+                document.getElementById('theme-text').textContent = "Tema henüz belirlenmedi";
+            }
+            
+            // Hangi tarihe göre geri sayım yapacağız?
+            const targetDate = isThemeRevealed ? endDate : themeRevealDate;
+            const timeLeft = targetDate - now;
+            
+            // Zamanı hesapla
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+            
+            // Geri sayım kutularını güncelle
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            
+            // Geri sayım başlığını güncelle
+            const countdownTitle = document.querySelector('.countdown-title');
+            countdownTitle.textContent = isThemeRevealed ? 
+                "Yarışma Bitimine Kalan Süre" : 
+                "Tema Açıklanmasına Kalan Süre";
+            
+            // Eğer yarışma bittiyse
+            if (timeLeft < 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                
+                if (isThemeRevealed) {
+                    countdownTitle.textContent = "Yarışma Sona Erdi!";
+                }
+                
+                clearInterval(countdownInterval);
+            }
+        }
+        
+        // Sayfa yüklendiğinde ilk değerleri ayarla
+        updateCountdown();
+        
+        // Her saniye geri sayımı güncelle
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
