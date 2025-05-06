@@ -374,9 +374,6 @@
     </footer>
     
     <script>
-        // Tema açıklanma zamanı - bu gece 00:00
-        const themeRevealDate = new Date();
-        themeRevealDate.setHours(24, 0, 0, 0); // Bugünün gece yarısı
         
         // Yarışma bitiş zamanı - Cumartesi saat 17:00
         const endDate = new Date();
@@ -399,7 +396,11 @@
                 
                 // Normalde bu veri sunucudan gelir, ama burada statik olarak ayarlayacağız
                 // Tema belirlendikten sonra buraya gerçek temayı yazabilirsiniz
-                document.getElementById('theme-text').textContent = "Tema henüz belirlenmedi";
+                document.getElementById('theme-text').textContent = "Dijital Sağlık (Digital Health) 
+
+Bireylerin sağlık verilerini takip etmelerini ve sağlık hizmetlerine erişimlerini kolaylaştıracak uygulamalar geliştirin.
+
+";
             }
             
             // Hangi tarihe göre geri sayım yapacağız?
