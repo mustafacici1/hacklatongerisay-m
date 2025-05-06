@@ -13,6 +13,7 @@
             --dark-gray: #212121;
             --light-gray: #757575;
             --white: #f5f5f5;
+            --accent-green: #00c853;
         }
         
         * {
@@ -55,12 +56,40 @@
             letter-spacing: 2px;
         }
         
+        .active-badge {
+            display: inline-block;
+            background-color: var(--accent-green);
+            color: var(--black);
+            font-weight: bold;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-top: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
         main {
             max-width: 1200px;
             width: 90%;
             margin: 0 auto;
             padding: 3rem 0;
             flex-grow: 1;
+        }
+        
+        .info-banner {
+            background-color: var(--dark-gray);
+            border-left: 5px solid var(--accent-green);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
         
         .countdown-section {
@@ -120,22 +149,27 @@
         
         .theme-content {
             font-size: 1.5rem;
-            padding: 1rem;
+            padding: 1.5rem;
             background-color: var(--black);
             border-radius: 8px;
             display: inline-block;
             min-width: 60%;
+            border: 2px solid var(--accent-green);
+            animation: glow 3s infinite alternate;
         }
         
-        #theme-placeholder {
-            color: var(--light-gray);
-            font-style: italic;
+        @keyframes glow {
+            from { box-shadow: 0 0 5px var(--accent-green); }
+            to { box-shadow: 0 0 20px var(--accent-green); }
         }
         
-        #theme-text {
+        .theme-description {
+            margin-top: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
             color: var(--white);
-            font-weight: bold;
-            display: none;
+            text-align: left;
+            padding: 0 1rem;
         }
         
         .teams-section {
@@ -245,6 +279,11 @@
             .theme-content {
                 min-width: 90%;
             }
+            
+            .theme-description {
+                font-size: 1rem;
+                padding: 0;
+            }
         }
     </style>
 </head>
@@ -252,11 +291,16 @@
     <header>
         <h1 class="logo">1. Rafadan Tayfa Hacklaton</h1>
         <p class="subtitle">KOD • YARATILIK • YENİLİK</p>
+        <div class="active-badge">YARIŞMA AKTIF!</div>
     </header>
     
     <main>
+        <div class="info-banner">
+            Önemli Not: Yarışma 11 Mayıs Pazar saat 17:00'da sona erecektir.
+        </div>
+        
         <section class="countdown-section">
-            <h2 class="countdown-title">Geri Sayım</h2>
+            <h2 class="countdown-title">Yarışma Bitimine Kalan Süre</h2>
             <div class="countdown-container">
                 <div class="countdown-box">
                     <div class="countdown-number" id="days">--</div>
@@ -280,8 +324,21 @@
         <section class="theme-section">
             <h2 class="theme-title">Hackathon Teması</h2>
             <div class="theme-content">
-                <p id="theme-placeholder">Tema bu gece saat 00:00'da açıklanacak</p>
-                <p id="theme-text"></p>
+                <p>DİJİTAL SAĞLIK</p>
+            </div>
+            <div class="theme-description">
+                <p>Bu yılki hackathon temamız "Dijital Sağlık" olarak belirlenmiştir. Katılımcılardan sağlık sektöründe dijital çözümler üretmeleri beklenmektedir. Bu kapsamda:</p>
+                <br>
+                <ul style="list-style-position: inside; text-align: left; padding-left: 1rem;">
+                    <li>Uzaktan sağlık hizmetleri</li>
+                    <li>Sağlık verileri yönetimi</li>
+                    <li>Fitness ve wellness uygulamaları</li>
+                    <li>Yaşlı sağlığı takibi</li>
+                    <li>Medikal eğitim çözümleri</li>
+                    <li>İlaç takip sistemleri</li>
+                </ul>
+                <br>
+                <p>Gibi alanlarda inovatif projeler geliştirilebilir. Projelerinizde teknoloji ve sağlık alanlarını birleştiren yaratıcı çözümler bekliyoruz!</p>
             </div>
         </section>
         
@@ -304,7 +361,6 @@
                             </div>
                             <span class="member-name">Yusuf</span>
                         </div>
-                      
                     </div>
                 </div>
                 
@@ -331,7 +387,6 @@
                     <div class="team-number">3</div>
                     <h3>Takım 3</h3>
                     <div class="team-members">
-                       
                         <div class="team-member">
                             <div class="member-photo">
                                 <img src="alifoto.jpg" alt="Ali">
@@ -374,38 +429,16 @@
     </footer>
     
     <script>
-        
-        // Yarışma bitiş zamanı - Cumartesi saat 17:00
+        // Yarışma bitiş zamanı - Pazar saat 17:00
         const endDate = new Date();
-        // Bugün hangi gün?
-        const today = endDate.getDay(); // 0 = Pazar, 6 = Cumartesi
-        // Cumartesi günü için gün ekleyelim
-        const daysUntilSaturday = today <= 6 ? 6 - today : 6 + (7 - today);
-        endDate.setDate(endDate.getDate() + daysUntilSaturday);
-        endDate.setHours(17, 0, 0, 0); // Cumartesi 17:00
+        endDate.setDate(11); // 11 Mayıs
+        endDate.setMonth(4);  // Mayıs ayı (0-11 arası)
+        endDate.setHours(17, 0, 0, 0); // 17:00
         
         // Geri sayım fonksiyonu
         function updateCountdown() {
             const now = new Date().getTime();
-            const isThemeRevealed = now >= themeRevealDate.getTime();
-            
-            // Tema açıklandı mı kontrol et
-            if (isThemeRevealed) {
-                document.getElementById('theme-placeholder').style.display = 'none';
-                document.getElementById('theme-text').style.display = 'block';
-                
-                // Normalde bu veri sunucudan gelir, ama burada statik olarak ayarlayacağız
-                // Tema belirlendikten sonra buraya gerçek temayı yazabilirsiniz
-                document.getElementById('theme-text').textContent = "Dijital Sağlık (Digital Health) 
-
-Bireylerin sağlık verilerini takip etmelerini ve sağlık hizmetlerine erişimlerini kolaylaştıracak uygulamalar geliştirin.
-
-";
-            }
-            
-            // Hangi tarihe göre geri sayım yapacağız?
-            const targetDate = isThemeRevealed ? endDate : themeRevealDate;
-            const timeLeft = targetDate - now;
+            const timeLeft = endDate - now;
             
             // Zamanı hesapla
             const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
@@ -419,12 +452,6 @@ Bireylerin sağlık verilerini takip etmelerini ve sağlık hizmetlerine erişim
             document.getElementById('minutes').textContent = minutes;
             document.getElementById('seconds').textContent = seconds;
             
-            // Geri sayım başlığını güncelle
-            const countdownTitle = document.querySelector('.countdown-title');
-            countdownTitle.textContent = isThemeRevealed ? 
-                "Yarışma Bitimine Kalan Süre" : 
-                "Tema Açıklanmasına Kalan Süre";
-            
             // Eğer yarışma bittiyse
             if (timeLeft < 0) {
                 document.getElementById('days').textContent = '0';
@@ -432,9 +459,9 @@ Bireylerin sağlık verilerini takip etmelerini ve sağlık hizmetlerine erişim
                 document.getElementById('minutes').textContent = '0';
                 document.getElementById('seconds').textContent = '0';
                 
-                if (isThemeRevealed) {
-                    countdownTitle.textContent = "Yarışma Sona Erdi!";
-                }
+                document.querySelector('.countdown-title').textContent = "Yarışma Sona Erdi!";
+                document.querySelector('.active-badge').textContent = "YARIŞMA BİTTİ";
+                document.querySelector('.active-badge').style.backgroundColor = "var(--light-gray)";
                 
                 clearInterval(countdownInterval);
             }
